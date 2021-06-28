@@ -83,9 +83,7 @@ function getPredictions(home, visitor) {
 }
 
 function translateMessage(msg) {
-  return msg.split(":")[1] > 0
-    ? "Home team will will"
-    : "Visitor team will win";
+  return msg.split(":")[1] > 0 ? "Home team will win" : "Visitor team will win";
 }
 
 export function Predict() {
@@ -217,7 +215,9 @@ export function Predict() {
                 alignItems="center"
               >
                 <Grid item>{predictions.message}</Grid>
-                <Grid item>{translateMessage(predictions.message)}</Grid>
+                <Grid item style={{ fontWeight: "bold" }}>
+                  {translateMessage(predictions.message)}
+                </Grid>
                 <Grid item>
                   Predictions refers to +/- stats, so positive means home team
                   will win and visitor negative
