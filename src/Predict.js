@@ -61,22 +61,15 @@ const teams = {
 };
 
 function getPredictions(home, visitor) {
-  console.log(home, visitor);
   if (home && visitor && home !== visitor) {
-    const url = new URL(baseUrl + "/predict");
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        home: home.toUpperCase(),
-        visitor: visitor.toUpperCase(),
-        client: "react-client",
-      }),
-    };
+    const url = new URL(baseUrl + "/predict?");
+    const params = new URLSearchParams({
+      homeTeam: home.toUpperCase(),
+      visitorTeam: visitor.toUpperCase(),
+      client: "react-client",
+    });
 
-    return fetch(url, requestOptions).then((response) => response.json());
+    return fetch(url + params).then((response) => response.json());
   } else {
     return Promise.resolve();
   }
@@ -97,8 +90,6 @@ export function Predict() {
     setLoading(true);
 
     getPredictions(homeInput, visitorInput).then((response) => {
-      console.log(response);
-
       setPredictions(response);
       setLoading(false);
     });
